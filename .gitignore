@@ -1,0 +1,14 @@
+/Travel/config/jdbc.properties
+/Travel/config/log4j.properties
+/Travel/config/spring-mvc.xml
+/Travel/config/applicationContext.xml
+.settings
+.classpath
+.project
+classes
+lib
+web.xml
+js
+META-INF
+css
+images
