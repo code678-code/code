@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:contenxt="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 扫描所在的包 -->
+	<contenxt:component-scan base-package="Controller.com"/>
+
+	<!-- 注解驱动 -->
+	<mvc:annotation-driven></mvc:annotation-driven>
+	
+	<!-- 视图解析器:简化在Controller类编写的视图路径 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 前缀 -->
+		<property name="prefix" value="/WEB-INF/ComputerHome/"/>
+		<!-- 后缀 -->
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<!-- 配置静态资源过滤 -->
+	<mvc:resources location="/" mapping="/**"/>
+	<mvc:resources location="/js/" mapping="/js/**"/>
+	
+		<!--3.配置适配器-->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+    	<!--配置json转换器 告诉springmvc使用jackson转换-->
+	    <property name="messageConverters">
+	        <list>
+	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+	        </list>
+	    </property>
+	</bean>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+   		<property name="defaultEncoding" value="utf-8"></property> 
+   		<property name="maxUploadSize" value="10485760000"></property>
+   		<property name="maxInMemorySize" value="40960"></property>
+   </bean>
+</beans>
